@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <librarians>
+    <librarian>
+      <first_name>Галина</first_name>
+      <last_name>Ивановна</last_name>
+      <phone>+79986573821</phone>
+    </librarian>
+  </librarians>
+
+  <readers>
+    <reader type="school">
+      <first_name>Иван</first_name>
+      <last_name>Иванов</last_name>
+      <phone>+71234567890</phone>
+      <email>ivan4ik@mail.ru</email>
+      <school_name>школа №15</school_name>
+      <grade>10Б</grade>
+      <ticket_id>A1B2C3D4</ticket_id>
+      <ticket_issue_date>2025-10-19</ticket_issue_date>
+      <ticket_expiry_date>2026-10-19</ticket_expiry_date>
+      <borrowed_books_isbn>
+        <isbn>978-0-123456-78-9</isbn>
+      </borrowed_books_isbn>
+      <review>
+        <text>отличная библиотека!</text>
+        <rating>5</rating>
+        <date>2025-10-19T14:30:00</date>
+      </review>
+      <in_club>true</in_club>
+    </reader>
+
+    <reader type="student">
+      <first_name>Василиса</first_name>
+      <last_name>Петрова</last_name>
+      <phone>+79090909090</phone>
+      <email>vasiliska@inbox.ru</email>
+      <university>МГУ</university>
+      <course>3</course>
+      <ticket_id>E5F6G7H8</ticket_id>
+      <ticket_issue_date>2025-09-01</ticket_issue_date>
+      <ticket_expiry_date>2026-09-01</ticket_expiry_date>
+      <borrowed_books_isbn/>
+      <review/>
+      <in_club>false</in_club>
+    </reader>
+  </readers>
+
+  <books>
+    <book>
+      <title>Теория всего</title>
+      <author>
+        <first_name>Стивен</first_name>
+        <last_name>Хокинг</last_name>
+        <bio>британский физик-теоретик, космолог, астрофизик и писатель</bio>
+      </author>
+      <isbn>978-0-123456-78-9</isbn>
+      <location>
+        <rack>A3</rack>
+        <shelf>2</shelf>
+      </location>
+      <is_available>false</is_available>
+      <current_borrower_name>
+        <first_name>Иван</first_name>
+        <last_name>Иванов</last_name>
+      </current_borrower_name>
+    </book>
+
+    <book>
+      <title>Мастер и Маргарита</title>
+      <author>
+        <first_name>Михаил</first_name>
+        <last_name>Булгаков</last_name>
+        <bio>русский писатель советского периода, врач, драматург, театральный режиссёр и актёр</bio>
+      </author>
+      <isbn>978-5-699123-45-6</isbn>
+      <location>
+        <rack>B1</rack>
+        <shelf>5</shelf>
+      </location>
+      <is_available>true</is_available>
+      <current_borrower_name/>
+    </book>
+  </books>
+
+  <rooms>
+    <room>
+      <name>Читальный зал</name>
+      <bookings>
+        <booking>
+          <seat_number>5</seat_number>
+          <datetime>2025-10-20T10:00:00</datetime>
+          <reader_name>
+            <first_name>Иван</first_name>
+            <last_name>Иванов</last_name>
+          </reader_name>
+        </booking>
+      </bookings>
+    </room>
+  </rooms>
+
+  <clubs>
+    <club>
+      <members_names>
+        <first_name>Иван</first_name>
+        <last_name>Иванов</last_name>
+      </members_names>
+      <meetings>
+        <meeting>2025-10-25T18:00:00</meeting>
+      </meetings>
+      <current_book_isbn>978-0-123456-78-9</current_book_isbn>
+    </club>
+  </clubs>
+</library>
