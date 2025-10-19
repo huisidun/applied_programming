@@ -1,0 +1,93 @@
+{
+  "librarians": [
+    {
+      "name": "Галина Ивановна",
+      "phone": "+79986573821"
+    }
+  ],
+  "readers": [
+    {
+      "type": "school",
+      "name": "Иван Иванов",
+      "phone": "+71234567890",
+      "email": "ivan4ik@mail.ru",
+      "school_name": "школа №15",
+      "grade": "10Б",
+      "ticket_id": "A1B2C3D4",
+      "ticket_issue_date": "2025-10-19",
+      "ticket_expiry_date": "2026-10-19",
+      "borrowed_books_isbn": ["978-0-123456-78-9"],
+      "review": {
+        "text": "отличная библиотека!",
+        "rating": 5,
+        "date": "2025-10-19T14:30:00"
+      },
+      "in_club": true
+    },
+    {
+      "type": "student",
+      "name": "Василиса Петроа",
+      "phone": "+79090909090",
+      "email": "vasiliska@inbox.ru",
+      "university": "МГУ",
+      "course": 3,
+      "ticket_id": "E5F6G7H8",
+      "ticket_issue_date": "2025-09-01",
+      "ticket_expiry_date": "2026-09-01",
+      "borrowed_books_isbn": [],
+      "review": null,
+      "in_club": false
+    }
+  ],
+  "books": [
+    {
+      "title": "Теория всего",
+      "author": {
+        "first_name": "Стивен",
+        "last_name": "Хокинг",
+        "bio": "британский физик-теоретик, космолог, астрофизик и писатель"
+      },
+      "isbn": "978-0-123456-78-9",
+      "location": {
+        "rack": "A3",
+        "shelf": "2"
+      },
+      "is_available": false,
+      "current_borrower_name": "Иван Иванов"
+    },
+    {
+      "title": "Мастер и Маргарита",
+      "author": {
+        "first_name": "Михаил",
+        "last_name": "Булгаков",
+        "bio": "русский писатель советского периода, врач, драматург, театральный режиссёр и актёр"
+      },
+      "isbn": "978-5-699123-45-6",
+      "location": {
+        "rack": "B1",
+        "shelf": "5"
+      },
+      "is_available": true,
+      "current_borrower_name": null
+    }
+  ],
+  "rooms": [
+    {
+      "name": "Читальный зал",
+      "bookings": [
+        {
+          "seat_number": 5,
+          "datetime": "2025-10-20T10:00:00",
+          "reader_name": "Иван Иванов"
+        }
+      ]
+    }
+  ],
+  "clubs": [
+    {
+      "members_names": ["Иван Иванов"],
+      "meetings": ["2025-10-25T18:00:00"],
+      "current_book_isbn": "978-0-123456-78-9"
+    }
+  ]
+}
