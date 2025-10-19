@@ -1,14 +1,16 @@
 {
   "librarians": [
     {
-      "name": "Галина Ивановна",
+      "first_name": "Галина",
+      "last_name": "Ивановна",
       "phone": "+79986573821"
     }
   ],
   "readers": [
     {
       "type": "school",
-      "name": "Иван Иванов",
+      "first_name": "Иван",
+      "last_name": "Иванов",
       "phone": "+71234567890",
       "email": "ivan4ik@mail.ru",
       "school_name": "школа №15",
@@ -26,7 +28,8 @@
     },
     {
       "type": "student",
-      "name": "Василиса Петроа",
+      "first_name": "Василиса",
+      "last_name": "Петрова",
       "phone": "+79090909090",
       "email": "vasiliska@inbox.ru",
       "university": "МГУ",
@@ -53,7 +56,10 @@
         "shelf": "2"
       },
       "is_available": false,
-      "current_borrower_name": "Иван Иванов"
+      "current_borrower_name": {
+        "first_name": "Иван",
+        "last_name": "Иванов"
+      }
     },
     {
       "title": "Мастер и Маргарита",
@@ -78,14 +84,20 @@
         {
           "seat_number": 5,
           "datetime": "2025-10-20T10:00:00",
-          "reader_name": "Иван Иванов"
+          "reader_name": {
+            "first_name": "Иван",
+            "last_name": "Иванов"
+          }
         }
       ]
     }
   ],
   "clubs": [
     {
-      "members_names": ["Иван Иванов"],
+      "members_names": {
+        "first_name": "Иван",
+        "last_name": "Иванов"
+      },
       "meetings": ["2025-10-25T18:00:00"],
       "current_book_isbn": "978-0-123456-78-9"
     }
