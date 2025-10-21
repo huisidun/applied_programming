@@ -15,6 +15,7 @@
       <phone>+71234567890</phone>
       <email>ivan4ik@mail.ru</email>
       <school_name>школа №15</school_name>
+      <education_place>школа</education_place>
       <grade>10Б</grade>
       <ticket_id>A1B2C3D4</ticket_id>
       <ticket_issue_date>2025-10-19</ticket_issue_date>
@@ -36,6 +37,7 @@
       <phone>+79090909090</phone>
       <email>vasiliska@inbox.ru</email>
       <university>МГУ</university>
+      <education_place>вуз</education_place>
       <course>3</course>
       <ticket_id>E5F6G7H8</ticket_id>
       <ticket_issue_date>2025-09-01</ticket_issue_date>
@@ -102,8 +104,10 @@
   <clubs>
     <club>
       <members_names>
-        <first_name>Иван</first_name>
-        <last_name>Иванов</last_name>
+        <member>
+          <first_name>Иван</first_name>
+          <last_name>Иванов</last_name>
+        </member>
       </members_names>
       <meetings>
         <meeting>2025-10-25T18:00:00</meeting>
