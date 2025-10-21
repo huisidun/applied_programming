@@ -96,7 +96,6 @@ class Librarian:
         return reader.take_book(book)
 
     def edit_reader_education(self, reader: Reader, new_place: str) -> None:
-
         reader.education_place = new_place
 
 #школьник (School)
