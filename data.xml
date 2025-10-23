@@ -9,42 +9,49 @@
   </librarians>
 
   <readers>
-    <reader type="school">
+    <reader>
       <first_name>Иван</first_name>
       <last_name>Иванов</last_name>
       <phone>+71234567890</phone>
       <email>ivan4ik@mail.ru</email>
-      <school_name>школа №15</school_name>
+      <reader_type>school</reader_type>
       <education_place>школа</education_place>
-      <grade>10Б</grade>
-      <ticket_id>A1B2C3D4</ticket_id>
-      <ticket_issue_date>2025-10-19</ticket_issue_date>
-      <ticket_expiry_date>2026-10-19</ticket_expiry_date>
+      <in_club>true</in_club>
       <borrowed_books_isbn>
         <isbn>978-0-123456-78-9</isbn>
       </borrowed_books_isbn>
+      <ticket>
+        <ticket_id>A1B2C3D4</ticket_id>
+        <issue_date>2025-10-19</issue_date>
+        <expiry_date>2026-10-19</expiry_date>
+      </ticket>
+      <school_name>школа №15</school_name>
+      <grade>10Б</grade>
       <review>
         <text>отличная библиотека!</text>
         <rating>5</rating>
         <date>2025-10-19T14:30:00</date>
       </review>
-      <in_club>true</in_club>
     </reader>
 
-    <reader type="student">
+    <reader>
       <first_name>Василиса</first_name>
       <last_name>Петрова</last_name>
       <phone>+79090909090</phone>
       <email>vasiliska@inbox.ru</email>
-      <university>МГУ</university>
+      <reader_type>student</reader_type>
       <education_place>вуз</education_place>
-      <course>3</course>
-      <ticket_id>E5F6G7H8</ticket_id>
-      <ticket_issue_date>2025-09-01</ticket_issue_date>
-      <ticket_expiry_date>2026-09-01</ticket_expiry_date>
-      <borrowed_books_isbn/>
-      <review/>
       <in_club>false</in_club>
+      <borrowed_books_isbn/>
+      <ticket>
+        <ticket_id>E5F6G7H8</ticket_id>
+        <issue_date>2025-09-01</issue_date>
+        <expiry_date>2026-09-01</expiry_date>
+      </ticket>
+      <university>МГУ</university>
+      <course>3</course>
+      <review/>
+      
     </reader>
   </readers>
 
@@ -62,10 +69,7 @@
         <shelf>2</shelf>
       </location>
       <is_available>false</is_available>
-      <current_borrower_name>
-        <first_name>Иван</first_name>
-        <last_name>Иванов</last_name>
-      </current_borrower_name>
+      <current_borrower>Иван Иванов</current_borrower>
     </book>
 
     <book>
@@ -81,7 +85,7 @@
         <shelf>5</shelf>
       </location>
       <is_available>true</is_available>
-      <current_borrower_name/>
+      <current_borrower/>
     </book>
   </books>
 
@@ -92,10 +96,7 @@
         <booking>
           <seat_number>5</seat_number>
           <datetime>2025-10-20T10:00:00</datetime>
-          <reader_name>
-            <first_name>Иван</first_name>
-            <last_name>Иванов</last_name>
-          </reader_name>
+          <reader>Иван Иванов</reader>
         </booking>
       </bookings>
     </room>
@@ -103,12 +104,9 @@
 
   <clubs>
     <club>
-      <members_names>
-        <member>
-          <first_name>Иван</first_name>
-          <last_name>Иванов</last_name>
-        </member>
-      </members_names>
+      <members>
+        <member>Иван Иванов</member>
+      </members>
       <meetings>
         <meeting>2025-10-25T18:00:00</meeting>
       </meetings>
