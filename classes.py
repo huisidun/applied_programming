@@ -2,7 +2,7 @@ from datetime import datetime, date, timedelta
 from typing import List, Optional, Dict
 import uuid
 
-#автор (Author)
+# Автор 
 class Author:
     def __init__(self, first_name: str, last_name: str, bio: str = ""):
         self.first_name: str = first_name
@@ -12,7 +12,8 @@ class Author:
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
-#место книги (Location)
+
+# Место книги (Location)
 class Location:
     def __init__(self, rack: str, shelf: str):
         self.rack: str = rack
@@ -20,6 +21,7 @@ class Location:
 
     def __str__(self) -> str:
         return f"стеллаж {self.rack}, полка {self.shelf}"
+
 
 #книга (Book)
 class Book:
@@ -34,6 +36,7 @@ class Book:
     def __str__(self) -> str:
         status = "доступна" if self.is_available else f"выдана {self.current_borrower.first_name} {self.current_borrower.last_name}"
         return f"'{self.title}' ({self.author}) — {status}"
+
 
 #читатель (Reader)
 class Reader:
@@ -74,6 +77,7 @@ class Reader:
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} ({self.reader_type})"
 
+
 #библиотекарь (Librarian)
 class Librarian:
     ACCESS_CODE: int = 314  #код входа в систему
@@ -96,7 +100,9 @@ class Librarian:
         return reader.take_book(book)
 
     def edit_reader_education(self, reader: Reader, new_place: str) -> None:
+
         reader.education_place = new_place
+
 
 #школьник (School)
 class School(Reader):
@@ -104,6 +110,7 @@ class School(Reader):
         super().__init__(first_name, last_name, phone, email, "school")
         self.school_name: str = school_name
         self.grade: str = grade
+        self.reader_type = "school"
 
 #студент (Student)
 class Student(Reader):
@@ -111,6 +118,8 @@ class Student(Reader):
         super().__init__(first_name, last_name, phone, email, "student")
         self.university: str = university
         self.course: int = course
+        self.reader_type = "student"
+
 
 #читательный зал (Room)
 class Room:
@@ -131,6 +140,7 @@ class Room:
             return True
         return False
 
+
 #читательский билет (Ticket)
 class Ticket:
     def __init__(self, owner: 'Reader'):
@@ -141,6 +151,7 @@ class Ticket:
 
     def __str__(self) -> str:
         return f"билет №{self.ticket_id} (до {self.expiry_date})"
+
 
 #отзыв (Review) 
 class Review:
@@ -158,6 +169,7 @@ class Review:
         self.text = new_text
         self.rating = new_rating
         self.date = datetime.now()
+
 
 #читательский клуб (Club)
 class Club:
