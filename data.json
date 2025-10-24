@@ -12,7 +12,7 @@
       "last_name": "Иванов",
       "phone": "+71234567890",
       "email": "ivan4ik@mail.ru",
-      "reader_type": "school",
+      "reader_type": "regular",
       "education_place": "школа",
       "in_club": true,
       "borrowed_books_isbn": [],
@@ -21,8 +21,6 @@
         "issue_date": "2025-10-19",
         "expiry_date": "2026-10-19"
       },
-      "school_name": "школа №15",
-      "grade": "10Б",
       "review": {
         "text": "отличная библиотека!",
         "rating": 5,
@@ -34,7 +32,7 @@
       "last_name": "Петрова",
       "phone": "+79090909090",
       "email": "vasiliska@inbox.ru",
-      "reader_type": "student",
+      "reader_type": "regular",
       "education_place": "вуз",
       "in_club": false,
       "borrowed_books_isbn": [],
@@ -43,8 +41,6 @@
         "issue_date": "2025-09-01",
         "expiry_date": "2026-09-01"
       },
-      "university": "МГУ",
-      "course": 3,
       "review": null
     },
     {
@@ -53,8 +49,8 @@
       "phone": "+70000000000",
       "email": "4444@ннн",
       "reader_type": "regular",
-      "education_place": "",
-      "in_club": false,
+      "education_place": null,
+      "in_club": true,
       "borrowed_books_isbn": [],
       "ticket": {
         "ticket_id": "6653ABB0",
@@ -94,6 +90,21 @@
       },
       "is_available": true,
       "current_borrower": null
+    },
+    {
+      "title": "Квантовая химия",
+      "author": {
+        "first_name": "Николай",
+        "last_name": "Коробов",
+        "bio": ""
+      },
+      "isbn": "978-0-123456-78-0",
+      "location": {
+        "rack": "A4",
+        "shelf": "6"
+      },
+      "is_available": true,
+      "current_borrower": null
     }
   ],
   "rooms": [
@@ -104,11 +115,14 @@
   ],
   "clubs": [
     {
-      "members": [],
+      "members": [
+        "сергей петров",
+        "Иван Иванов"
+      ],
       "meetings": [
         "2025-10-25T18:00:00"
       ],
-      "current_book_isbn": "978-0-123456-78-9"
+      "current_book_isbn": null
     }
   ]
 }

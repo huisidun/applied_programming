@@ -36,17 +36,29 @@
       </Location>
       <IsAvailable>True</IsAvailable>
     </Book>
+    <Book>
+      <Title>Квантовая химия</Title>
+      <Author>
+        <FirstName>Николай</FirstName>
+        <LastName>Коробов</LastName>
+        <Bio />
+      </Author>
+      <ISBN>978-0-123456-78-0</ISBN>
+      <Location>
+        <Rack>A4</Rack>
+        <Shelf>6</Shelf>
+      </Location>
+      <IsAvailable>True</IsAvailable>
+    </Book>
   </Books>
   <Readers>
-    <Reader type="school">
+    <Reader type="regular">
       <FirstName>Иван</FirstName>
       <LastName>Иванов</LastName>
       <Phone>+71234567890</Phone>
       <Email>ivan4ik@mail.ru</Email>
       <EducationPlace>школа</EducationPlace>
       <InClub>True</InClub>
-      <SchoolName>школа №15</SchoolName>
-      <Grade>10Б</Grade>
       <Ticket>
         <TicketId>A1B2C3D4</TicketId>
         <IssueDate>2025-10-19</IssueDate>
@@ -59,15 +71,13 @@
       </Review>
       <BorrowedBooks />
     </Reader>
-    <Reader type="student">
+    <Reader type="regular">
       <FirstName>Василиса</FirstName>
       <LastName>Петрова</LastName>
       <Phone>+79090909090</Phone>
       <Email>vasiliska@inbox.ru</Email>
       <EducationPlace>вуз</EducationPlace>
       <InClub>False</InClub>
-      <University>МГУ</University>
-      <Course>3</Course>
       <Ticket>
         <TicketId>E5F6G7H8</TicketId>
         <IssueDate>2025-09-01</IssueDate>
@@ -81,7 +91,7 @@
       <Phone>+70000000000</Phone>
       <Email>4444@ннн</Email>
       <EducationPlace />
-      <InClub>False</InClub>
+      <InClub>True</InClub>
       <Ticket>
         <TicketId>6653ABB0</TicketId>
         <IssueDate>2025-10-24</IssueDate>
@@ -98,11 +108,13 @@
   </Rooms>
   <Clubs>
     <Club>
-      <Members />
+      <Members>
+        <Member>сергей петров</Member>
+        <Member>Иван Иванов</Member>
+      </Members>
       <Meetings>
         <Meeting>2025-10-25T18:00:00</Meeting>
       </Meetings>
-      <CurrentBookISBN>978-0-123456-78-9</CurrentBookISBN>
     </Club>
   </Clubs>
 </Library>
