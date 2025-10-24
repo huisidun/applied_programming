@@ -1,116 +1,108 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<library>
-  <librarians>
-    <librarian>
-      <first_name>Галина</first_name>
-      <last_name>Ивановна</last_name>
-      <phone>+79986573821</phone>
-    </librarian>
-  </librarians>
-
-  <readers>
-    <reader>
-      <first_name>Иван</first_name>
-      <last_name>Иванов</last_name>
-      <phone>+71234567890</phone>
-      <email>ivan4ik@mail.ru</email>
-      <reader_type>school</reader_type>
-      <education_place>школа</education_place>
-      <in_club>true</in_club>
-      <borrowed_books_isbn>
-        <isbn>978-0-123456-78-9</isbn>
-      </borrowed_books_isbn>
-      <ticket>
-        <ticket_id>A1B2C3D4</ticket_id>
-        <issue_date>2025-10-19</issue_date>
-        <expiry_date>2026-10-19</expiry_date>
-      </ticket>
-      <school_name>школа №15</school_name>
-      <grade>10Б</grade>
-      <review>
-        <text>отличная библиотека!</text>
-        <rating>5</rating>
-        <date>2025-10-19T14:30:00</date>
-      </review>
-    </reader>
-
-    <reader>
-      <first_name>Василиса</first_name>
-      <last_name>Петрова</last_name>
-      <phone>+79090909090</phone>
-      <email>vasiliska@inbox.ru</email>
-      <reader_type>student</reader_type>
-      <education_place>вуз</education_place>
-      <in_club>false</in_club>
-      <borrowed_books_isbn/>
-      <ticket>
-        <ticket_id>E5F6G7H8</ticket_id>
-        <issue_date>2025-09-01</issue_date>
-        <expiry_date>2026-09-01</expiry_date>
-      </ticket>
-      <university>МГУ</university>
-      <course>3</course>
-      <review/>
-      
-    </reader>
-  </readers>
-
-  <books>
-    <book>
-      <title>Теория всего</title>
-      <author>
-        <first_name>Стивен</first_name>
-        <last_name>Хокинг</last_name>
-        <bio>британский физик-теоретик, космолог, астрофизик и писатель</bio>
-      </author>
-      <isbn>978-0-123456-78-9</isbn>
-      <location>
-        <rack>A3</rack>
-        <shelf>2</shelf>
-      </location>
-      <is_available>false</is_available>
-      <current_borrower>Иван Иванов</current_borrower>
-    </book>
-
-    <book>
-      <title>Мастер и Маргарита</title>
-      <author>
-        <first_name>Михаил</first_name>
-        <last_name>Булгаков</last_name>
-        <bio>русский писатель советского периода, врач, драматург, театральный режиссёр и актёр</bio>
-      </author>
-      <isbn>978-5-699123-45-6</isbn>
-      <location>
-        <rack>B1</rack>
-        <shelf>5</shelf>
-      </location>
-      <is_available>true</is_available>
-      <current_borrower/>
-    </book>
-  </books>
-
-  <rooms>
-    <room>
-      <name>Читальный зал</name>
-      <bookings>
-        <booking>
-          <seat_number>5</seat_number>
-          <datetime>2025-10-20T10:00:00</datetime>
-          <reader>Иван Иванов</reader>
-        </booking>
-      </bookings>
-    </room>
-  </rooms>
-
-  <clubs>
-    <club>
-      <members>
-        <member>Иван Иванов</member>
-      </members>
-      <meetings>
-        <meeting>2025-10-25T18:00:00</meeting>
-      </meetings>
-      <current_book_isbn>978-0-123456-78-9</current_book_isbn>
-    </club>
-  </clubs>
-</library>
+<?xml version='1.0' encoding='utf-8'?>
+<Library>
+  <Librarians>
+    <Librarian>
+      <FirstName>Галина</FirstName>
+      <LastName>Ивановна</LastName>
+      <Phone>+79986573821</Phone>
+    </Librarian>
+  </Librarians>
+  <Books>
+    <Book>
+      <Title>Теория всего</Title>
+      <Author>
+        <FirstName>Стивен</FirstName>
+        <LastName>Хокинг</LastName>
+        <Bio>британский физик-теоретик, космолог, астрофизик и писатель</Bio>
+      </Author>
+      <ISBN>978-0-123456-78-9</ISBN>
+      <Location>
+        <Rack>A3</Rack>
+        <Shelf>2</Shelf>
+      </Location>
+      <IsAvailable>False</IsAvailable>
+    </Book>
+    <Book>
+      <Title>Мастер и Маргарита</Title>
+      <Author>
+        <FirstName>Михаил</FirstName>
+        <LastName>Булгаков</LastName>
+        <Bio>русский писатель советского периода, врач, драматург, театральный режиссёр и актёр</Bio>
+      </Author>
+      <ISBN>978-5-699123-45-6</ISBN>
+      <Location>
+        <Rack>B1</Rack>
+        <Shelf>5</Shelf>
+      </Location>
+      <IsAvailable>True</IsAvailable>
+    </Book>
+  </Books>
+  <Readers>
+    <Reader type="school">
+      <FirstName>Иван</FirstName>
+      <LastName>Иванов</LastName>
+      <Phone>+71234567890</Phone>
+      <Email>ivan4ik@mail.ru</Email>
+      <EducationPlace>школа</EducationPlace>
+      <InClub>True</InClub>
+      <SchoolName>школа №15</SchoolName>
+      <Grade>10Б</Grade>
+      <Ticket>
+        <TicketId>A1B2C3D4</TicketId>
+        <IssueDate>2025-10-19</IssueDate>
+        <ExpiryDate>2026-10-19</ExpiryDate>
+      </Ticket>
+      <Review>
+        <Text>отличная библиотека!</Text>
+        <Rating>5</Rating>
+        <Date>2025-10-19T14:30:00</Date>
+      </Review>
+      <BorrowedBooks />
+    </Reader>
+    <Reader type="student">
+      <FirstName>Василиса</FirstName>
+      <LastName>Петрова</LastName>
+      <Phone>+79090909090</Phone>
+      <Email>vasiliska@inbox.ru</Email>
+      <EducationPlace>вуз</EducationPlace>
+      <InClub>False</InClub>
+      <University>МГУ</University>
+      <Course>3</Course>
+      <Ticket>
+        <TicketId>E5F6G7H8</TicketId>
+        <IssueDate>2025-09-01</IssueDate>
+        <ExpiryDate>2026-09-01</ExpiryDate>
+      </Ticket>
+      <BorrowedBooks />
+    </Reader>
+    <Reader type="regular">
+      <FirstName>сергей</FirstName>
+      <LastName>петров</LastName>
+      <Phone>+70000000000</Phone>
+      <Email>4444@ннн</Email>
+      <EducationPlace />
+      <InClub>False</InClub>
+      <Ticket>
+        <TicketId>6653ABB0</TicketId>
+        <IssueDate>2025-10-24</IssueDate>
+        <ExpiryDate>2025-11-07</ExpiryDate>
+      </Ticket>
+      <BorrowedBooks />
+    </Reader>
+  </Readers>
+  <Rooms>
+    <Room>
+      <Name>Читальный зал</Name>
+      <Bookings />
+    </Room>
+  </Rooms>
+  <Clubs>
+    <Club>
+      <Members />
+      <Meetings>
+        <Meeting>2025-10-25T18:00:00</Meeting>
+      </Meetings>
+      <CurrentBookISBN>978-0-123456-78-9</CurrentBookISBN>
+    </Club>
+  </Clubs>
+</Library>

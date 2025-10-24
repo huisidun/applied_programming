@@ -15,9 +15,7 @@
       "reader_type": "school",
       "education_place": "школа",
       "in_club": true,
-      "borrowed_books_isbn": [
-        "978-0-123456-78-9"
-      ],
+      "borrowed_books_isbn": [],
       "ticket": {
         "ticket_id": "A1B2C3D4",
         "issue_date": "2025-10-19",
@@ -48,6 +46,22 @@
       "university": "МГУ",
       "course": 3,
       "review": null
+    },
+    {
+      "first_name": "сергей",
+      "last_name": "петров",
+      "phone": "+70000000000",
+      "email": "4444@ннн",
+      "reader_type": "regular",
+      "education_place": "",
+      "in_club": false,
+      "borrowed_books_isbn": [],
+      "ticket": {
+        "ticket_id": "6653ABB0",
+        "issue_date": "2025-10-24",
+        "expiry_date": "2025-11-07"
+      },
+      "review": null
     }
   ],
   "books": [
@@ -64,7 +78,7 @@
         "shelf": "2"
       },
       "is_available": false,
-      "current_borrower": "Иван Иванов"
+      "current_borrower": null
     },
     {
       "title": "Мастер и Маргарита",
@@ -85,20 +99,12 @@
   "rooms": [
     {
       "name": "Читальный зал",
-      "bookings": [
-        {
-          "seat_number": 5,
-          "datetime": "2025-10-20T10:00:00",
-          "reader": "Иван Иванов"
-        }
-      ]
+      "bookings": []
     }
   ],
   "clubs": [
     {
-      "members": [
-        "Иван Иванов"
-      ],
+      "members": [],
       "meetings": [
         "2025-10-25T18:00:00"
       ],

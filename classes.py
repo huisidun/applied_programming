@@ -1,17 +1,35 @@
 from datetime import datetime, date, timedelta
 from typing import List, Optional, Dict
 import uuid
+import re
 
-# Автор 
+# Автор (Author)
 class Author:
     first_name: str
     last_name: str
     bio: str
 
-    def __init__(self, first_name: str, last_name: str, bio: str = "") -> None:
-        self.first_name = first_name
-        self.last_name = last_name
-        self.bio = bio
+    def __init__(
+        self,
+        first_name: str,
+        last_name: str,
+        bio: str = ""
+    ) -> None:
+        if not isinstance(first_name, str):
+            raise TypeError("first_name должен быть строкой.")
+        if not first_name.strip():
+            raise ValueError("first_name не может быть пустым.")
+        self.first_name = first_name.strip()
+
+        if not isinstance(last_name, str):
+            raise TypeError("last_name должен быть строкой.")
+        if not last_name.strip():
+            raise ValueError("last_name не может быть пустым.")
+        self.last_name = last_name.strip()
+
+        if not isinstance(bio, str):
+            raise TypeError("bio должен быть строкой.")
+        self.bio = bio.strip()
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
@@ -23,8 +41,17 @@ class Location:
     shelf: str
 
     def __init__(self, rack: str, shelf: str) -> None:
-        self.rack = rack
-        self.shelf = shelf
+        if not isinstance(rack, str):
+            raise TypeError("rack должен быть строкой.")
+        if not rack.strip():
+            raise ValueError("rack не может быть пустым.")
+        self.rack = rack.strip()
+
+        if not isinstance(shelf, str):
+            raise TypeError("shelf должен быть строкой.")
+        if not shelf.strip():
+            raise ValueError("shelf не может быть пустым.")
+        self.shelf = shelf.strip()
 
     def __str__(self) -> str:
         return f"стеллаж {self.rack}, полка {self.shelf}"
@@ -39,10 +66,26 @@ class Book:
     is_available: bool
     current_borrower: Optional['Reader']
 
-    def __init__(self, title: str, author: Author, isbn: str, location: Location) -> None:
-        self.title = title
+    def __init__(
+        self,
+        title: str,
+        author: Author,
+        isbn: str,
+        location: Location
+    ) -> None:
+        if not isinstance(title, str):
+            raise TypeError("title должен быть строкой.")
+        if not title.strip():
+            raise ValueError("Название книги не может быть пустым.")
+        self.title = title.strip()
+
         self.author = author
-        self.isbn = isbn
+
+        if not isinstance(isbn, str):
+            raise TypeError("isbn должен быть строкой.")
+        if not isbn.strip():
+            raise ValueError("ISBN не может быть пустым.")
+        self.isbn = isbn.strip()
         self.location = location
         self.is_available = True
         self.current_borrower = None
@@ -64,16 +107,16 @@ class Ticket:
     owner: 'Reader'
 
     def __init__(self, owner: 'Reader') -> None:
+        self.owner = owner
         self.ticket_id = str(uuid.uuid4())[:8].upper()
         self.issue_date = datetime.now().date()
         self.expiry_date = self.issue_date + timedelta(days=14)
-        self.owner = owner
 
     def __str__(self) -> str:
         return f"билет №{self.ticket_id} (до {self.expiry_date})"
 
 
-#отзыв (Review) 
+#отзыв (Review)
 class Review:
     text: str
     rating: int
@@ -81,18 +124,31 @@ class Review:
     date: datetime
 
     def __init__(self, text: str, rating: int, author: 'Reader') -> None:
+        if not isinstance(text, str):
+            raise TypeError("text должен быть строкой.")
+        if not text.strip():
+            raise ValueError("Текст отзыва не может быть пустым.")
+        self.text = text.strip()
+
+        if not isinstance(rating, int):
+            raise TypeError("rating должен быть целым числом.")
         if not (1 <= rating <= 5):
-            raise ValueError("рейтинг от 1 до 5")
-        self.text = text
+            raise ValueError("Рейтинг должен быть от 1 до 5.")
         self.rating = rating
         self.author = author
         self.date = datetime.now()
 
     def update(self, new_text: str, new_rating: int) -> None:
+        if not isinstance(new_text, str) or not new_text.strip():
+            raise ValueError("Новый текст отзыва не может быть пустым.")
+        self.text = new_text.strip()
+
+        if not isinstance(new_rating, int):
+            raise TypeError("Новый рейтинг должен быть целым числом.")
         if not (1 <= new_rating <= 5):
-            raise ValueError("рейтинг от 1 до 5")
-        self.text = new_text
+            raise ValueError("Рейтинг должен быть от 1 до 5.")
         self.rating = new_rating
+
         self.date = datetime.now()
 
 
@@ -109,17 +165,49 @@ class Reader:
     in_club: bool
     education_place: str
 
-    def __init__(self, first_name: str, last_name: str, phone: str, email: str, reader_type: str) -> None:
-        self.first_name = first_name
-        self.last_name = last_name
-        self.phone = phone
-        self.email = email
-        self.reader_type = reader_type  # "school", "student", "regular"
+    def __init__(
+        self,
+        first_name: str,
+        last_name: str,
+        phone: str,
+        email: str,
+        reader_type: str
+    ) -> None:
+        if not isinstance(first_name, str):
+            raise TypeError("first_name должен быть строкой.")
+        if not first_name.strip():
+            raise ValueError("first_name не может быть пустым.")
+        self.first_name = first_name.strip()
+
+        if not isinstance(last_name, str):
+            raise TypeError("last_name должен быть строкой.")
+        if not last_name.strip():
+            raise ValueError("last_name не может быть пустым.")
+        self.last_name = last_name.strip()
+
+        if not isinstance(phone, str):
+            raise TypeError("phone должен быть строкой.")
+        if not re.match(r"^\+7\d{10}$", phone.strip()):
+            raise ValueError("Неверный формат телефона. Пример: +70000000000")
+        self.phone = phone.strip()
+
+        if not isinstance(email, str):
+            raise TypeError("email должен быть строкой.")
+        if not email.strip() or "@" not in email:
+            raise ValueError("Некорректный email.")
+        self.email = email.strip()
+
+        if not isinstance(reader_type, str):
+            raise TypeError("reader_type должен быть строкой.")
+        if reader_type not in {"school", "student", "regular"}:
+            raise ValueError("reader_type должен быть 'school', 'student' или 'regular'.")
+        self.reader_type = reader_type
+
         self.borrowed_books = []
         self.ticket = Ticket(self)
         self.review = None
         self.in_club = False
-        self.education_place = ""  #редактирует только библиотекарь
+        self.education_place = ""
 
     def take_book(self, book: Book) -> bool:
         if book.is_available:
@@ -138,10 +226,7 @@ class Reader:
         return False
 
     def set_review(self, text: str, rating: int) -> None:
-        if self.review is None:
-            self.review = Review(text, rating, self)
-        else:
-            self.review.update(text, rating)
+        self.review = Review(text, rating, self)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} ({self.reader_type})"
@@ -149,18 +234,35 @@ class Reader:
 
 #библиотекарь (Librarian)
 class Librarian:
-    ACCESS_CODE: int = 314  #код входа в систему
+    ACCESS_CODE: int = 314
 
     first_name: str
     last_name: str
     phone: str
 
     def __init__(self, last_name: str, first_name: str, phone: str) -> None:
-        self.first_name = first_name
-        self.last_name = last_name
-        self.phone = phone
-    
+        if not isinstance(first_name, str):
+            raise TypeError("first_name должен быть строкой.")
+        if not first_name.strip():
+            raise ValueError("first_name не может быть пустым.")
+        self.first_name = first_name.strip()
+
+        if not isinstance(last_name, str):
+            raise TypeError("last_name должен быть строкой.")
+        if not last_name.strip():
+            raise ValueError("last_name не может быть пустым.")
+        self.last_name = last_name.strip()
+
+        if not isinstance(phone, str):
+            raise TypeError("phone должен быть строкой.")
+        if not re.match(r"^\+7\d{10}$", phone.strip()):
+            raise ValueError("Неверный формат телефона. Пример: +70000000000")
+        self.phone = phone.strip()
+
+    @staticmethod
     def verify_code(code: int) -> bool:
+        if not isinstance(code, int):
+            return False
         return code == Librarian.ACCESS_CODE
 
     def accept_book_return(self, book: Book, reader: Reader) -> bool:
@@ -173,7 +275,9 @@ class Librarian:
         return reader.take_book(book)
 
     def edit_reader_education(self, reader: Reader, new_place: str) -> None:
-        reader.education_place = new_place
+        if not isinstance(new_place, str):
+            raise TypeError("new_place должен быть строкой.")
+        reader.education_place = new_place.strip()
 
 
 #школьник (School)
@@ -181,10 +285,28 @@ class School(Reader):
     school_name: str
     grade: str
 
-    def __init__(self, first_name: str, last_name: str, phone: str, email: str, school_name: str, grade: str) -> None:
+    def __init__(
+        self,
+        first_name: str,
+        last_name: str,
+        phone: str,
+        email: str,
+        school_name: str,
+        grade: str
+    ) -> None:
+        if not isinstance(school_name, str):
+            raise TypeError("school_name должен быть строкой.")
+        if not school_name.strip():
+            raise ValueError("school_name не может быть пустым.")
+        self.school_name = school_name.strip()
+
+        if not isinstance(grade, str):
+            raise TypeError("grade должен быть строкой.")
+        if not grade.strip():
+            raise ValueError("grade не может быть пустым.")
+        self.grade = grade.strip()
+
         super().__init__(first_name, last_name, phone, email, "school")
-        self.school_name = school_name
-        self.grade = grade
 
 
 #студент (Student)
@@ -192,10 +314,28 @@ class Student(Reader):
     university: str
     course: int
 
-    def __init__(self, first_name: str, last_name: str, phone: str, email: str, university: str, course: int) -> None:
-        super().__init__(first_name, last_name, phone, email, "student")
-        self.university = university
+    def __init__(
+        self,
+        first_name: str,
+        last_name: str,
+        phone: str,
+        email: str,
+        university: str,
+        course: int
+    ) -> None:
+        if not isinstance(university, str):
+            raise TypeError("university должен быть строкой.")
+        if not university.strip():
+            raise ValueError("university не может быть пустым.")
+        self.university = university.strip()
+
+        if not isinstance(course, int):
+            raise TypeError("course должен быть целым числом.")
+        if not (1 <= course <= 6):
+            raise ValueError("course должен быть от 1 до 6.")
         self.course = course
+
+        super().__init__(first_name, last_name, phone, email, "student")
 
 
 #читательный зал (Room)
@@ -204,13 +344,22 @@ class Room:
     seats: Dict[int, Dict[datetime, Reader]]
 
     def __init__(self, name: str, total_seats: int = 20) -> None:
-        self.name = name
-        self.seats = {
-            i: {} for i in range(1, total_seats + 1)
-        }
+        if not isinstance(name, str):
+            raise TypeError("name должен быть строкой.")
+        if not name.strip():
+            raise ValueError("name не может быть пустым.")
+        self.name = name.strip()
+
+        if not isinstance(total_seats, int):
+            raise TypeError("total_seats должен быть целым числом.")
+        if total_seats < 1:
+            raise ValueError("total_seats должен быть >= 1.")
+        self.seats = {i: {} for i in range(1, total_seats + 1)}
 
     def is_seat_available_at(self, seat_num: int, dt: datetime) -> bool:
-        if seat_num not in self.seats:
+        if not isinstance(seat_num, int) or seat_num not in self.seats:
+            return False
+        if not isinstance(dt, datetime):
             return False
         return dt not in self.seats[seat_num]
 
