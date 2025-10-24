@@ -4,10 +4,14 @@ import uuid
 
 # Автор 
 class Author:
-    def __init__(self, first_name: str, last_name: str, bio: str = ""):
-        self.first_name: str = first_name
-        self.last_name: str = last_name
-        self.bio: str = bio
+    first_name: str
+    last_name: str
+    bio: str
+
+    def __init__(self, first_name: str, last_name: str, bio: str = "") -> None:
+        self.first_name = first_name
+        self.last_name = last_name
+        self.bio = bio
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
@@ -15,9 +19,12 @@ class Author:
 
 # Место книги (Location)
 class Location:
-    def __init__(self, rack: str, shelf: str):
-        self.rack: str = rack
-        self.shelf: str = shelf
+    rack: str
+    shelf: str
+
+    def __init__(self, rack: str, shelf: str) -> None:
+        self.rack = rack
+        self.shelf = shelf
 
     def __str__(self) -> str:
         return f"стеллаж {self.rack}, полка {self.shelf}"
@@ -25,32 +32,94 @@ class Location:
 
 #книга (Book)
 class Book:
-    def __init__(self, title: str, author: Author, isbn: str, location: Location):
-        self.title: str = title
-        self.author: Author = author
-        self.isbn: str = isbn
-        self.location: Location = location
-        self.is_available: bool = True
-        self.current_borrower: Optional['Reader'] = None
+    title: str
+    author: Author
+    isbn: str
+    location: Location
+    is_available: bool
+    current_borrower: Optional['Reader']
+
+    def __init__(self, title: str, author: Author, isbn: str, location: Location) -> None:
+        self.title = title
+        self.author = author
+        self.isbn = isbn
+        self.location = location
+        self.is_available = True
+        self.current_borrower = None
 
     def __str__(self) -> str:
-        status = "доступна" if self.is_available else f"выдана {self.current_borrower.first_name} {self.current_borrower.last_name}"
+        if self.is_available:
+            status = "доступна"
+        else:
+            borrower = self.current_borrower
+            status = f"выдана {borrower.first_name} {borrower.last_name}"
         return f"'{self.title}' ({self.author}) — {status}"
+
+
+#читательский билет (Ticket)
+class Ticket:
+    ticket_id: str
+    issue_date: date
+    expiry_date: date
+    owner: 'Reader'
+
+    def __init__(self, owner: 'Reader') -> None:
+        self.ticket_id = str(uuid.uuid4())[:8].upper()
+        self.issue_date = datetime.now().date()
+        self.expiry_date = self.issue_date + timedelta(days=14)
+        self.owner = owner
+
+    def __str__(self) -> str:
+        return f"билет №{self.ticket_id} (до {self.expiry_date})"
+
+
+#отзыв (Review) 
+class Review:
+    text: str
+    rating: int
+    author: 'Reader'
+    date: datetime
+
+    def __init__(self, text: str, rating: int, author: 'Reader') -> None:
+        if not (1 <= rating <= 5):
+            raise ValueError("рейтинг от 1 до 5")
+        self.text = text
+        self.rating = rating
+        self.author = author
+        self.date = datetime.now()
+
+    def update(self, new_text: str, new_rating: int) -> None:
+        if not (1 <= new_rating <= 5):
+            raise ValueError("рейтинг от 1 до 5")
+        self.text = new_text
+        self.rating = new_rating
+        self.date = datetime.now()
 
 
 #читатель (Reader)
 class Reader:
-    def __init__(self, first_name: str, last_name: str, phone: str, email: str, reader_type: str):
-        self.first_name: str = first_name
-        self.last_name: str = last_name
-        self.phone: str = phone
-        self.email: str = email
-        self.reader_type: str = reader_type  # "school", "student", "regular"
-        self.borrowed_books: List[Book] = []
-        self.ticket: Ticket = Ticket(self)
-        self.review: Optional['Review'] = None
-        self.in_club: bool = False
-        self.education_place: str = ""  #редактирует только библиотекарь
+    first_name: str
+    last_name: str
+    phone: str
+    email: str
+    reader_type: str
+    borrowed_books: List[Book]
+    ticket: Ticket
+    review: Optional[Review]
+    in_club: bool
+    education_place: str
+
+    def __init__(self, first_name: str, last_name: str, phone: str, email: str, reader_type: str) -> None:
+        self.first_name = first_name
+        self.last_name = last_name
+        self.phone = phone
+        self.email = email
+        self.reader_type = reader_type  # "school", "student", "regular"
+        self.borrowed_books = []
+        self.ticket = Ticket(self)
+        self.review = None
+        self.in_club = False
+        self.education_place = ""  #редактирует только библиотекарь
 
     def take_book(self, book: Book) -> bool:
         if book.is_available:
@@ -82,10 +151,14 @@ class Reader:
 class Librarian:
     ACCESS_CODE: int = 314  #код входа в систему
 
-    def __init__(self, last_name: str, first_name: str, phone: str):
-        self.first_name: str = first_name
-        self.last_name: str = last_name
-        self.phone: str = phone
+    first_name: str
+    last_name: str
+    phone: str
+
+    def __init__(self, last_name: str, first_name: str, phone: str) -> None:
+        self.first_name = first_name
+        self.last_name = last_name
+        self.phone = phone
     
     def verify_code(code: int) -> bool:
         return code == Librarian.ACCESS_CODE
@@ -100,32 +173,39 @@ class Librarian:
         return reader.take_book(book)
 
     def edit_reader_education(self, reader: Reader, new_place: str) -> None:
-
         reader.education_place = new_place
 
 
 #школьник (School)
 class School(Reader):
-    def __init__(self, first_name: str, last_name: str, phone: str, email: str, school_name: str, grade: str):
+    school_name: str
+    grade: str
+
+    def __init__(self, first_name: str, last_name: str, phone: str, email: str, school_name: str, grade: str) -> None:
         super().__init__(first_name, last_name, phone, email, "school")
-        self.school_name: str = school_name
-        self.grade: str = grade
-        self.reader_type = "school"
+        self.school_name = school_name
+        self.grade = grade
+
 
 #студент (Student)
 class Student(Reader):
-    def __init__(self, first_name: str, last_name: str, phone: str, email: str, university: str, course: int):
+    university: str
+    course: int
+
+    def __init__(self, first_name: str, last_name: str, phone: str, email: str, university: str, course: int) -> None:
         super().__init__(first_name, last_name, phone, email, "student")
-        self.university: str = university
-        self.course: int = course
-        self.reader_type = "student"
+        self.university = university
+        self.course = course
 
 
 #читательный зал (Room)
 class Room:
-    def __init__(self, name: str, total_seats: int = 20):
-        self.name: str = name
-        self.seats: Dict[int, Dict[datetime, 'Reader']] = {
+    name: str
+    seats: Dict[int, Dict[datetime, Reader]]
+
+    def __init__(self, name: str, total_seats: int = 20) -> None:
+        self.name = name
+        self.seats = {
             i: {} for i in range(1, total_seats + 1)
         }
 
@@ -141,42 +221,16 @@ class Room:
         return False
 
 
-#читательский билет (Ticket)
-class Ticket:
-    def __init__(self, owner: 'Reader'):
-        self.ticket_id: str = str(uuid.uuid4())[:8].upper()
-        self.issue_date: date = datetime.now().date()
-        self.expiry_date: date = self.issue_date + timedelta(days=14)
-        self.owner: 'Reader' = owner
-
-    def __str__(self) -> str:
-        return f"билет №{self.ticket_id} (до {self.expiry_date})"
-
-
-#отзыв (Review) 
-class Review:
-    def __init__(self, text: str, rating: int, author: Reader):
-        if not (1 <= rating <= 5):
-            raise ValueError("рейтинг от 1 до 5")
-        self.text: str = text
-        self.rating: int = rating
-        self.author: Reader = author
-        self.date: datetime = datetime.now()
-
-    def update(self, new_text: str, new_rating: int) -> None:
-        if not (1 <= new_rating <= 5):
-            raise ValueError("рейтинг от 1 до 5")
-        self.text = new_text
-        self.rating = new_rating
-        self.date = datetime.now()
-
-
 #читательский клуб (Club)
 class Club:
-    def __init__(self):
-        self.members: List[Reader] = []
-        self.meetings: List[datetime] = []
-        self.current_book: Optional[Book] = None
+    members: List[Reader]
+    meetings: List[datetime]
+    current_book: Optional[Book]
+
+    def __init__(self) -> None:
+        self.members = []
+        self.meetings = []
+        self.current_book = None
 
     def join(self, reader: Reader) -> None:
         if reader not in self.members:
