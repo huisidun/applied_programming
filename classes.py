@@ -3,7 +3,7 @@ from typing import List, Optional, Dict
 import uuid
 import re
 
-# Автор (Author)
+# Автор книги
 class Author:
     first_name: str
     last_name: str
@@ -35,7 +35,7 @@ class Author:
         return f"{self.first_name} {self.last_name}"
 
 
-# Место книги (Location)
+# Место книги
 class Location:
     rack: str
     shelf: str
@@ -57,7 +57,7 @@ class Location:
         return f"стеллаж {self.rack}, полка {self.shelf}"
 
 
-#книга (Book)
+# Книга
 class Book:
     title: str
     author: Author
@@ -94,12 +94,15 @@ class Book:
         if self.is_available:
             status = "доступна"
         else:
-            borrower = self.current_borrower
-            status = f"выдана {borrower.first_name} {borrower.last_name}"
+            if self.current_borrower is None:
+                status = "выдана (владелец неизвестен)"
+            else:
+                borrower = self.current_borrower
+                status = f"выдана {borrower.first_name} {borrower.last_name}"
         return f"'{self.title}' ({self.author}) — {status}"
 
 
-#читательский билет (Ticket)
+# Читательский билет
 class Ticket:
     ticket_id: str
     issue_date: date
@@ -116,7 +119,7 @@ class Ticket:
         return f"билет №{self.ticket_id} (до {self.expiry_date})"
 
 
-#отзыв (Review)
+# Отзыв
 class Review:
     text: str
     rating: int
@@ -152,7 +155,7 @@ class Review:
         self.date = datetime.now()
 
 
-#читатель (Reader)
+# Читатель
 class Reader:
     first_name: str
     last_name: str
@@ -232,7 +235,7 @@ class Reader:
         return f"{self.first_name} {self.last_name} ({self.reader_type})"
 
 
-#библиотекарь (Librarian)
+# Библиотекарь
 class Librarian:
     ACCESS_CODE: int = 314
 
@@ -280,7 +283,7 @@ class Librarian:
         reader.education_place = new_place.strip()
 
 
-#школьник (School)
+# Школьник
 class School(Reader):
     school_name: str
     grade: str
@@ -309,7 +312,7 @@ class School(Reader):
         super().__init__(first_name, last_name, phone, email, "school")
 
 
-#студент (Student)
+# Студент
 class Student(Reader):
     university: str
     course: int
@@ -338,7 +341,7 @@ class Student(Reader):
         super().__init__(first_name, last_name, phone, email, "student")
 
 
-#читательный зал (Room)
+# Читательный зал
 class Room:
     name: str
     seats: Dict[int, Dict[datetime, Reader]]
@@ -370,7 +373,7 @@ class Room:
         return False
 
 
-#читательский клуб (Club)
+# Читательский клуб
 class Club:
     members: List[Reader]
     meetings: List[datetime]
