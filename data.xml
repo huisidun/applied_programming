@@ -97,6 +97,11 @@
         <IssueDate>2025-10-24</IssueDate>
         <ExpiryDate>2025-11-07</ExpiryDate>
       </Ticket>
+      <Review>
+        <Text>крутая библиотека</Text>
+        <Rating>5</Rating>
+        <Date>2025-10-24T19:59:34.164748</Date>
+      </Review>
       <BorrowedBooks />
     </Reader>
   </Readers>
@@ -108,10 +113,7 @@
   </Rooms>
   <Clubs>
     <Club>
-      <Members>
-        <Member>сергей петров</Member>
-        <Member>Иван Иванов</Member>
-      </Members>
+      <Members />
       <Meetings>
         <Meeting>2025-10-25T18:00:00</Meeting>
       </Meetings>
