@@ -34,6 +34,11 @@ class Author:
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
+    def save(self):
+        if not self.first_name or not self.last_name:
+            raise ValueError("Имя и фамилия автора обязательны.")
+        print(f"Автор '{self}' готов к использованию.")
+
 
 # Место книги
 class Location:
@@ -100,6 +105,46 @@ class Book:
                 borrower = self.current_borrower
                 status = f"выдана {borrower.first_name} {borrower.last_name}"
         return f"'{self.title}' ({self.author}) — {status}"
+
+    def save(self) -> bool:
+        existing_book = Book.find_by_isbn(self.isbn)
+        if existing_book:
+            print(f"Книга с ISBN '{self.isbn}' уже существует. Обновляем.")
+            # Обновляем поля кроме ISBN
+            existing_book.title = self.title
+            existing_book.author = self.author
+            existing_book.location = self.location
+            return True
+        books.append(self)
+        print(f"Книга '{self}' создана и добавлена в список.")
+        return True
+
+    @classmethod
+    def find_by_isbn(cls, isbn: str) -> Optional['Book']:
+        import main
+        for book in main.books:
+            if book.isbn == isbn:
+                print(f"Найдена книга: {book}")
+                return book
+        print(f"Книга с ISBN '{isbn}' не найдена.")
+        return None
+
+    def update_location(self, new_location: Location) -> bool:
+        self.location = new_location
+        print(f"Местоположение книги '{self}' обновлено.")
+        return True
+
+    def delete(self) -> bool:
+        if not self.is_available:
+            print(f"Невозможно удалить книгу '{self}', так как она выдана читателю.")
+            return False
+        if self in books:
+            books.remove(self)
+            print(f"Книга '{self}' удалена из списка.")
+            return True
+        else:
+            print(f"Книга '{self}' не найдена в списке для удаления.")
+            return False
 
 
 # Читательский билет
@@ -234,6 +279,45 @@ class Reader:
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} ({self.reader_type})"
 
+    def save(self) -> bool:
+        existing_reader = Reader.find_by_name(self.first_name, self.last_name)
+        if existing_reader:
+            print(f"Читатель '{self}' уже существует. Обновляем данные.")
+            existing_reader.phone = self.phone
+            existing_reader.email = self.email
+            existing_reader.reader_type = self.reader_type
+            existing_reader.education_place = self.education_place
+            return True
+        readers.append(self)
+        print(f"Читатель '{self}' создан и добавлен в список.")
+        return True
+
+    @classmethod
+    def find_by_name(cls, first_name: str, last_name: str) -> Optional['Reader']:
+        for reader in readers:
+            if reader.first_name == first_name and reader.last_name == last_name:
+                print(f"Найден читатель: {reader}")
+                return reader
+        print(f"Читатель '{first_name} {last_name}' не найден.")
+        return None
+
+    def update_education_place(self, new_education_place: str) -> bool:
+        self.education_place = new_education_place.strip()
+        print(f"Место учёбы/работы читателя '{self}' обновлено.")
+        return True
+
+    def delete(self) -> bool:
+        if len(self.borrowed_books) > 0:
+            print(f"Невозможно удалить читателя '{self}', у него есть невозвращённые книги.")
+            return False
+        if self in readers:
+            readers.remove(self)
+            print(f"Читатель '{self}' удалён из списка.")
+            return True
+        else:
+            print(f"Читатель '{self}' не найден в списке для удаления.")
+            return False
+
 
 # Библиотекарь
 class Librarian:
@@ -281,6 +365,42 @@ class Librarian:
         if not isinstance(new_place, str):
             raise TypeError("new_place должен быть строкой.")
         reader.education_place = new_place.strip()
+
+    def save(self) -> bool:
+        existing_librarian = Librarian.find_by_name(self.first_name, self.last_name)
+        if existing_librarian:
+            print(f"Библиотекарь '{self}' уже существует. Обновляем данные.")
+            existing_librarian.phone = self.phone
+            return True
+        librarians.append(self)
+        print(f"Библиотекарь '{self}' создан и добавлен в список.")
+        return True
+
+    @classmethod
+    def find_by_name(cls, first_name: str, last_name: str) -> Optional['Librarian']:
+        for librarian in librarians:
+            if librarian.first_name == first_name and librarian.last_name == last_name:
+                print(f"Найден библиотекарь: {librarian}")
+                return librarian
+        print(f"Библиотекарь '{first_name} {last_name}' не найден.")
+        return None
+
+    def update_phone(self, new_phone: str) -> bool:
+        if not re.match(r"^\+7\d{10}$", new_phone.strip()):
+            print("Неверный формат телефона.")
+            return False
+        self.phone = new_phone.strip()
+        print(f"Телефон библиотекаря '{self}' обновлён.")
+        return True
+
+    def delete(self) -> bool:
+        if self in librarians:
+            librarians.remove(self)
+            print(f"Библиотекарь '{self}' удалён из списка.")
+            return True
+        else:
+            print(f"Библиотекарь '{self}' не найден в списке для удаления.")
+            return False
 
 
 # Школьник
@@ -372,6 +492,50 @@ class Room:
             return True
         return False
 
+    def save(self) -> bool:
+        existing_room = Room.find_by_name(self.name)
+        if existing_room:
+            print(f"Читательский зал '{self.name}' уже существует. Обновляем (например, количество мест).")
+            existing_room.name = self.name # Обновляем имя, если оно изменилось
+            return True
+        rooms.append(self)
+        print(f"Читательский зал '{self.name}' создан и добавлен в список.")
+        return True
+
+    @classmethod
+    def find_by_name(cls, name: str) -> Optional['Room']:
+        for room in rooms:
+            if room.name == name:
+                print(f"Найден зал: {room.name}")
+                return room
+        print(f"Читательский зал '{name}' не найден.")
+        return None
+
+    def update_name(self, new_name: str) -> bool:
+        existing_room = Room.find_by_name(new_name)
+        if existing_room and existing_room != self:
+             print(f"Читательский зал с названием '{new_name}' уже существует.")
+             return False
+        self.name = new_name.strip()
+        print(f"Название зала '{self.name}' изменено на '{new_name}'.")
+        return True
+
+    def delete(self) -> bool:
+        now = datetime.now()
+        has_future_booking = any(
+            dt >= now for times in self.seats.values() for dt in times.keys()
+        )
+        if has_future_booking:
+            print(f"Невозможно удалить зал '{self.name}', так как в нём есть бронирования на будущее.")
+            return False
+        if self in rooms:
+            rooms.remove(self)
+            print(f"Читательский зал '{self.name}' удалён из списка.")
+            return True
+        else:
+            print(f"Читательский зал '{self.name}' не найден в списке для удаления.")
+            return False
+
 
 # Читательский клуб
 class Club:
@@ -399,3 +563,39 @@ class Club:
 
     def set_current_book(self, book: Book) -> None:
         self.current_book = book
+
+    def save(self) -> bool:
+        if self not in clubs:
+            clubs.append(self)
+            print(f"Читательский клуб '{id(self)}' создан и добавлен в список.")
+            return True
+        else:
+            print(f"Читательский клуб '{id(self)}' уже существует в списке.")
+            return True
+
+    def find_by_index(cls, index: int) -> Optional['Club']:
+        if 0 <= index < len(clubs):
+            club = clubs[index]
+            print(f"Найден клуб: {id(club)}")
+            return club
+        print(f"Читательский клуб с индексом {index} не найден.")
+        return None
+
+    def set_current_book_crud(self, new_book: Book) -> bool:
+        self.set_current_book(new_book)
+        print(f"Текущая книга клуба '{id(self)}' обновлена на '{new_book}'.")
+        return True
+
+    def delete(self) -> bool:
+        if len(self.members) > 0:
+            print(f"Невозможно удалить клуб '{id(self)}', так как в нём есть члены.")
+            return False
+        if self in clubs:
+            clubs.remove(self)
+            print(f"Читательский клуб '{id(self)}' удалён из списка.")
+            return True
+        else:
+            print(f"Читательский клуб '{id(self)}' не найден в списке для удаления.")
+            return False
+
+from main import books, readers, librarians, rooms, clubs # Импортглобальных списков из main для хранения данных
