@@ -48,11 +48,12 @@
         <Rack>A4</Rack>
         <Shelf>6</Shelf>
       </Location>
-      <IsAvailable>True</IsAvailable>
+      <IsAvailable>False</IsAvailable>
+      <CurrentBorrower>Иван Иванов</CurrentBorrower>
     </Book>
   </Books>
   <Readers>
-    <Reader type="regular">
+    <Reader type="school">
       <FirstName>Иван</FirstName>
       <LastName>Иванов</LastName>
       <Phone>+71234567890</Phone>
@@ -69,9 +70,11 @@
         <Rating>5</Rating>
         <Date>2025-10-19T14:30:00</Date>
       </Review>
-      <BorrowedBooks />
+      <BorrowedBooks>
+        <ISBN>978-0-123456-78-0</ISBN>
+      </BorrowedBooks>
     </Reader>
-    <Reader type="regular">
+    <Reader type="student">
       <FirstName>Василиса</FirstName>
       <LastName>Петрова</LastName>
       <Phone>+79090909090</Phone>

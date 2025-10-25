@@ -15,7 +15,9 @@
       "reader_type": "regular",
       "education_place": "школа",
       "in_club": true,
-      "borrowed_books_isbn": [],
+      "borrowed_books_isbn": [
+        "978-0-123456-78-0"
+      ],
       "ticket": {
         "ticket_id": "A1B2C3D4",
         "issue_date": "2025-10-19",
@@ -107,8 +109,8 @@
         "rack": "A4",
         "shelf": "6"
       },
-      "is_available": true,
-      "current_borrower": null
+      "is_available": false,
+      "current_borrower": "Иван Иванов"
     }
   ],
   "rooms": [
