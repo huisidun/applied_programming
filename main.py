@@ -1,22 +1,23 @@
-import json
-import xml.etree.ElementTree as ET
-from datetime import datetime
-from exceptions import *
 from classes import (
     Author, Location, Book, Reader, Librarian,
     School, Student, Room, Ticket, Review, Club
 )
-
-# Файлы находятся в той же папке
-JSON_FILE = "data.json"
-XML_FILE = "data.xml"
-
 # Глобальные списки
 books: list[Book] = []
 readers: list[Reader] = []
 librarians: list[Librarian] = []
 rooms: list[Room] = []
 clubs: list[Club] = []
+
+import json
+import xml.etree.ElementTree as ET
+from datetime import datetime
+from exceptions import *
+
+
+# Файлы находятся в той же папке
+JSON_FILE = "data.json"
+XML_FILE = "data.xml"
 
 
 def find_book_by_isbn(isbn: str) -> Book | None:
