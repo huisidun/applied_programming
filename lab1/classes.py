@@ -3,6 +3,10 @@ from typing import List, Optional, Dict
 import uuid
 import re
 
+from exceptions import (
+    BookNotAvailableError
+)
+
 # Автор книги
 class Author:
     first_name: str
@@ -14,7 +18,7 @@ class Author:
         first_name: str,
         last_name: str,
         bio: str = ""
-    ) -> None:
+    ):
         if not isinstance(first_name, str):
             raise TypeError("first_name должен быть строкой.")
         if not first_name.strip():
@@ -45,7 +49,11 @@ class Location:
     rack: str
     shelf: str
 
-    def __init__(self, rack: str, shelf: str) -> None:
+    def __init__(
+        self,
+        rack: str, 
+        shelf: str
+    ):
         if not isinstance(rack, str):
             raise TypeError("rack должен быть строкой.")
         if not rack.strip():
@@ -77,7 +85,7 @@ class Book:
         author: Author,
         isbn: str,
         location: Location
-    ) -> None:
+    ):
         if not isinstance(title, str):
             raise TypeError("title должен быть строкой.")
         if not title.strip():
@@ -154,7 +162,7 @@ class Ticket:
     expiry_date: date
     owner: 'Reader'
 
-    def __init__(self, owner: 'Reader') -> None:
+    def __init__(self, owner: 'Reader'):
         self.owner = owner
         self.ticket_id = str(uuid.uuid4())[:8].upper()
         self.issue_date = datetime.now().date()
@@ -171,7 +179,12 @@ class Review:
     author: 'Reader'
     date: datetime
 
-    def __init__(self, text: str, rating: int, author: 'Reader') -> None:
+    def __init__(
+        self, 
+        text: str, 
+        rating: int, 
+        author: 'Reader'
+    ):
         if not isinstance(text, str):
             raise TypeError("text должен быть строкой.")
         if not text.strip():
@@ -220,7 +233,7 @@ class Reader:
         phone: str,
         email: str,
         reader_type: str
-    ) -> None:
+    ):
         if not isinstance(first_name, str):
             raise TypeError("first_name должен быть строкой.")
         if not first_name.strip():
@@ -257,21 +270,21 @@ class Reader:
         self.in_club = False
         self.education_place = ""
 
-    def take_book(self, book: Book) -> bool:
-        if book.is_available:
-            book.is_available = False
-            book.current_borrower = self
-            self.borrowed_books.append(book)
-            return True
-        return False
+    def take_book(self, book: 'Book') -> bool:
+        if not book.is_available:
+            raise BookNotAvailableError(book.title) 
+        book.is_available = False
+        book.current_borrower = self
+        self.borrowed_books.append(book)
+        return True
 
-    def return_borrowed_book(self, book: Book) -> bool:
-        if book in self.borrowed_books:
-            book.is_available = True
-            book.current_borrower = None
-            self.borrowed_books.remove(book)
-            return True
-        return False
+    def return_borrowed_book(self, book: 'Book') -> bool:
+        if book not in self.borrowed_books:
+            raise ValueError(f"Читатель {self.first_name} {self.last_name} не брал книгу '{book.title}' для возврата.") # <-- Эта строка новая
+        book.is_available = True
+        book.current_borrower = None
+        self.borrowed_books.remove(book)
+        return True
 
     def set_review(self, text: str, rating: int) -> None:
         self.review = Review(text, rating, self)
@@ -327,7 +340,12 @@ class Librarian:
     last_name: str
     phone: str
 
-    def __init__(self, last_name: str, first_name: str, phone: str) -> None:
+    def __init__(
+        self, 
+        last_name: str, 
+        first_name: str, 
+        phone: str
+    ):
         if not isinstance(first_name, str):
             raise TypeError("first_name должен быть строкой.")
         if not first_name.strip():
@@ -352,11 +370,13 @@ class Librarian:
             return False
         return code == Librarian.ACCESS_CODE
 
-    def accept_book_return(self, book: Book, reader: Reader) -> bool:
-        if not book.is_available and book.current_borrower == reader:
-            reader.return_borrowed_book(book)
-            return True
-        return False
+    def accept_book_return(self, book: 'Book', reader: 'Reader') -> bool:
+        if book.is_available: # Книга уже доступна, значит, её не было в выдаче
+             raise ValueError(f"Книга '{book.title}' уже доступна, она не была выдана.")
+        if book.current_borrower != reader: # Книга выдана другому читателю
+             raise ValueError(f"Книга '{book.title}' выдана другому читателю, а не '{reader.first_name} {reader.last_name}'.")
+        reader.return_borrowed_book(book) # Этот вызов теперь может выбросить ValueError
+        return True
 
     def lend_book_to_reader(self, book: Book, reader: Reader) -> bool:
         return reader.take_book(book)
@@ -416,7 +436,7 @@ class School(Reader):
         email: str,
         school_name: str,
         grade: str
-    ) -> None:
+    ):
         if not isinstance(school_name, str):
             raise TypeError("school_name должен быть строкой.")
         if not school_name.strip():
@@ -445,7 +465,7 @@ class Student(Reader):
         email: str,
         university: str,
         course: int
-    ) -> None:
+    ):
         if not isinstance(university, str):
             raise TypeError("university должен быть строкой.")
         if not university.strip():
@@ -466,7 +486,11 @@ class Room:
     name: str
     seats: Dict[int, Dict[datetime, Reader]]
 
-    def __init__(self, name: str, total_seats: int = 20) -> None:
+    def __init__(
+        self, 
+        name: str, 
+        total_seats: int = 20
+    ):
         if not isinstance(name, str):
             raise TypeError("name должен быть строкой.")
         if not name.strip():
@@ -543,7 +567,7 @@ class Club:
     meetings: List[datetime]
     current_book: Optional[Book]
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.members = []
         self.meetings = []
         self.current_book = None
