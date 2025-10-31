@@ -12,7 +12,9 @@ clubs: list[Club] = []
 import json
 import xml.etree.ElementTree as ET
 from datetime import datetime
-from exceptions import *
+from exceptions import (
+    BookNotAvailableError
+)
 
 
 # Файлы находятся в той же папке
@@ -485,10 +487,15 @@ def reader_menu(reader: Reader):
         if choice == "1":
             isbn = input("Введите ISBN книги: ").strip()
             book = find_book_by_isbn(isbn)
-            if book and reader.take_book(book):
-                print("Книга успешно взята!")
+            if book:
+                try:
+                    success = reader.take_book(book)
+                    if success:
+                        print("Книга успешно взята!")
+                except BookNotAvailableError as e: 
+                    print(f"Ошибка: {e}")
             else:
-                print("Книга недоступна или не найдена.")
+                print(f"Книга с ISBN '{isbn}' не найдена.")
 
         elif choice == "2":
             if not reader.borrowed_books:
