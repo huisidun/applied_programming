@@ -1,7 +1,6 @@
 # Собственные исключения
 
-
-class LibraryError(Exception):
+class LibraryError(
     pass
 
 
